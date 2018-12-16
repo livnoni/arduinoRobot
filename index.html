@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Yehuda Robot</title>
+</head>
+<body>
+<H1>Yehuda Robot.</H1>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io();
+
+
+
+
+    document.onkeydown = function(evt) {
+        evt = evt || window.event;
+        switch (evt.key) {
+            case 'ArrowUp':
+                emit("FORWARD")
+                break;
+            case 'ArrowDown':
+                emit("BACKWARD");
+                break;
+            case 'ArrowLeft':
+                emit("LEFT");
+                break;
+            case 'ArrowRight':
+                emit("RIGHT");
+                break;
+            case 's':
+                emit("STOP");
+                break;
+        }
+    };
+
+    function emit(data){
+        console.log(data)
+        socket.emit('robot', data);
+    }
+
+</script>
+</body>
+</html>
