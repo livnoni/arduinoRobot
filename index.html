@@ -5,10 +5,18 @@
     <title>Yehuda Robot</title>
 </head>
 <body>
-<H1>Yehuda Robot.</H1>
-<div>
-    <img src="stream.mjpg" width="640" height="480">
-</div>
+<center>
+    <H1>Yehuda Robot.</H1>
+    <div>
+        Robot ip:<br>
+        <input id="ip-input" type="text" name="ip" value="YOUR_ROBOT_IP_HERE" onchange="onIpInputChange(event)"><br>
+    </div>
+    <br>
+    <div>
+        <img id= "live-camera" src="http://YOUR_ROBOT_IP_HERE:8000/stream.mjpg" width="640" height="480">
+    </div>
+</center>
+
 <script src="/socket.io/socket.io.js"></script>
 <script>
     var socket = io();
@@ -58,6 +66,12 @@
     function emit(data) {
         console.log(data)
         socket.emit('robot', data);
+    }
+
+
+    function onIpInputChange(event){
+        let ip = document.getElementById("ip-input").value;
+        document.getElementById("live-camera").src = `http://${ip}:8000/stream.mjpg`;
     }
 
 </script>
