@@ -4,13 +4,6 @@ var io = require('socket.io')(http);
 
 var car;
 
-// async function getCar(){
-//     car = await require('./arduino')();
-//
-// }
-//
-// getCar();
-
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');
 });

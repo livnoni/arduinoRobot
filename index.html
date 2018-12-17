@@ -6,14 +6,14 @@
 </head>
 <body>
 <H1>Yehuda Robot.</H1>
+<div>
+    <img src="stream.mjpg" width="640" height="480">
+</div>
 <script src="/socket.io/socket.io.js"></script>
 <script>
     var socket = io();
 
-
-
-
-    document.onkeydown = function(evt) {
+    document.onkeydown = function (evt) {
         evt = evt || window.event;
         switch (evt.key) {
             case 'ArrowUp':
@@ -34,7 +34,28 @@
         }
     };
 
-    function emit(data){
+    document.onkeyup = function (evt) {
+        evt = evt || window.event;
+        switch (evt.key) {
+            case 'ArrowUp':
+                emit("STOP");
+                break;
+            case 'ArrowDown':
+                emit("STOP");
+                break;
+            case 'ArrowLeft':
+                emit("STOP");
+                break;
+            case 'ArrowRight':
+                emit("STOP");
+                break;
+            case 's':
+                emit("STOP");
+                break;
+        }
+    };
+
+    function emit(data) {
         console.log(data)
         socket.emit('robot', data);
     }

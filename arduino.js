@@ -13,6 +13,9 @@ function arduino(){
         board.on("ready", ()=>{
             console.log("Board is ready!");
             var car = new Car();
+            var led = new five.Led(13);
+            led.on();
+
             resolve(car);
         })
     })
