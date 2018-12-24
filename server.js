@@ -2,6 +2,10 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+const say = require('say');
+const Youtube = require('./youtube');
+var youtube = new Youtube();
+
 var car;
 
 app.get('/', function(req, res){
@@ -29,7 +33,7 @@ io.on('connection', async function(socket){
             case 'BACKWARD':
                 //Arrow down
                 if(state != "BACKWARD"){
-                    console.log("down");
+                    console.log("BACKWARD");
                     state = "BACKWARD";
                     car.backward();
                 }
@@ -37,7 +41,7 @@ io.on('connection', async function(socket){
             case 'RIGHT':
                 //Arrow right
                 if(state != "RIGHT"){
-                    console.log("right");
+                    console.log("RIGHT");
                     state = "RIGHT";
                     car.right();
                 }
@@ -45,7 +49,7 @@ io.on('connection', async function(socket){
             case 'LEFT':
                 //Arrow left
                 if(state != "LEFT"){
-                    console.log("left");
+                    console.log("LEFT");
                     state = "LEFT";
                     car.left();
                 }
@@ -58,6 +62,28 @@ io.on('connection', async function(socket){
                     console.log("stop");
                 }
                 break;
+        }
+    });
+
+    socket.on("say", function(msg){
+        try{
+            console.log("got say:", msg)
+            say.speak(msg);
+        }catch (e) {
+            console.error("Speak err:",e);
+        }
+    });
+
+    socket.on("youtube", async function(data){
+        console.log("server got youtube -> "+data);
+        try{
+            if(data=='STOP'){
+                youtube.stop();
+            }else{
+                youtube.play(data);
+            }
+        }catch (e) {
+            console.error("youtube err:",e);
         }
     });
 

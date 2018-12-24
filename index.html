@@ -1,24 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    .button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+</style>
+
 <head>
     <meta charset="UTF-8">
     <title>Yehuda Robot</title>
 </head>
 <body>
 <center>
-    <H1>Yehuda Robot.</H1>
+    <H1>Robo-Yuda</H1>
     <div>
         Robot ip:<br>
-        <input id="ip-input" type="text" name="ip" value="YOUR_ROBOT_IP_HERE" onchange="onIpInputChange(event)"><br>
+        <input id="ip-input" type="text" name="ip" value="YOUR_ROBOT_IP_HERE" size="40"
+               onchange="onIpInputChange()"><br>
+    </div>
+    <br>
+    <button onclick="setVideoSize('INCREASE')" style="font-size:20px; margin-right:50px">Increase Video +</button>
+    <button onclick="setVideoSize('DECREASE')" style="font-size:20px; margin-left:50px">Decrease Video -</button>
+    <br>
+    <br>
+    <div>
+        <img id="live-camera" width="640" height="480">
+    </div>
+
+    <br>
+    <div>
+        Type text that the robot will say:
+        <textarea rows="2" cols="50" id="say-input"></textarea>
+        <button onclick="onSayInputChange()">Robot Say!</button>
     </div>
     <br>
     <div>
-        <img id= "live-camera" src="http://YOUR_ROBOT_IP_HERE:8000/stream.mjpg" width="640" height="480">
+        Playing youtube songs:
+        <input id="youtube-input" type="text" name="yutube" value="https://www.youtube.com/watch?v=SESSION_ID" size="40"
+               onchange="onIpInputChange()">
+        <button id="button-youtube-play" onclick="onYoutube()">Play</button>
+        <button id="button-youtube-stop" onclick="onYoutube('STOP')">Stop</button>
+    </div>
+
+    <br>
+    <button onclick="setButtonSize('INCREASE')" style="font-size:20px; margin-right:50px">Increase Buttons +</button>
+    <button onclick="setButtonSize('DECREASE')" style="font-size:20px; margin-left:50px">Decrease Buttons -</button>
+    <br>
+    <br>
+
+    <div style="text-align:center;width:480px;">
+        <button class="button" id="button-FORWARD" onmousedown="buttonPressed('FORWARD')"
+                ontouchstart="buttonPressed('FORWARD')" onmouseup="buttonReleased('FORWARD')"
+                ontouchend="buttonReleased('FORWARD')">FORWARD
+        </button>
+        <br><br>
+        <button class="button" id="button-LEFT" onmousedown="buttonPressed('LEFT')" ontouchstart="buttonPressed('LEFT')"
+                onmouseup="buttonReleased('LEFT')" ontouchend="buttonReleased('LEFT')">LEFT
+        </button>
+        <button class="button" id="button-RIGHT" onmousedown="buttonPressed('RIGHT')"
+                ontouchstart="buttonPressed('RIGHT')" onmouseup="buttonReleased('RIGHT')"
+                ontouchend="buttonReleased('RIGHT')">RIGHT
+        </button>
+        <br><br>
+        <button class="button" id="button-BACKWARD" onmousedown="buttonPressed('BACKWARD')"
+                ontouchstart="buttonPressed('BACKWARD')" onmouseup="buttonReleased('BACKWARD')"
+                ontouchend="buttonReleased('BACKWARD')">BACKWARD
+        </button>
     </div>
 </center>
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
+
+    function setVideoSize(param) {
+        let currentWidth = document.getElementById("live-camera").width;
+        let currentHeight = document.getElementById("live-camera").height;
+        document.getElementById("live-camera").width = param == "INCREASE" ? currentWidth + 100 : currentWidth - 100;
+        document.getElementById("live-camera").height = param == "INCREASE" ? currentHeight + 100 : currentHeight - 100;
+    }
+
+    function setButtonSize(param) {
+        console.log("param=", param)
+        var el = document.getElementsByClassName("button")[0];
+        var style = window.getComputedStyle(el, null).getPropertyValue('font-size');
+        var currentSize = parseFloat(style);
+
+        for (let i = 0; i < document.getElementsByClassName("button").length; i++) {
+            document.getElementsByClassName("button")[i].style.fontSize = param == "INCREASE" ? (currentSize + 10) + 'px' : (currentSize - 10) + 'px';
+        }
+    }
+
+
+    function buttonPressed(direction) {
+        console.log('buttonPressed=', direction);
+        emit(direction);
+    }
+
+    function buttonReleased(direction) {
+        console.log('buttonReleased=', direction);
+        emit("STOP");
+    }
+
+
     var socket = io();
 
     document.onkeydown = function (evt) {
@@ -36,9 +128,7 @@
             case 'ArrowRight':
                 emit("RIGHT");
                 break;
-            case 's':
-                emit("STOP");
-                break;
+
         }
     };
 
@@ -57,21 +147,53 @@
             case 'ArrowRight':
                 emit("STOP");
                 break;
-            case 's':
-                emit("STOP");
-                break;
         }
     };
 
     function emit(data) {
-        console.log(data)
+        console.log(data);
+        let buttons = document.getElementsByClassName("button");
+        for (let i = 0; i < buttons.length; i++) {
+            if (data != "STOP" && buttons[i].id.includes(data)) buttons[i].style.background = 'blue';
+            else buttons[i].style.background = '#4CAF50';
+        }
         socket.emit('robot', data);
     }
 
+    function setVideoStreaming() {
+        let currentUrl = window.location.href;
+        let videoSrc = currentUrl.split(":3000")[0] + ":8000/stream.mjpg";
+        document.getElementById("live-camera").src = videoSrc;
+        document.getElementById("ip-input").value = videoSrc;
+    }
 
-    function onIpInputChange(event){
+    setVideoStreaming();
+
+
+    function onIpInputChange() {
         let ip = document.getElementById("ip-input").value;
-        document.getElementById("live-camera").src = `http://${ip}:8000/stream.mjpg`;
+        document.getElementById("live-camera").src = ip;
+    }
+
+    function onSayInputChange() {
+        let sayData = document.getElementById("say-input").value;
+        console.log("sayData=", sayData)
+        socket.emit('say', sayData);
+    }
+
+    function onYoutube(data) {
+        let buttonPlay = document.getElementById("button-youtube-play");
+        if(data=="STOP"){
+            console.log("youtube->STOP");
+            socket.emit('youtube', data);
+            buttonPlay.style.background = "";
+        }else{
+            let youtubeUrl = document.getElementById("youtube-input").value;
+            console.log("youtube=", youtubeUrl);
+            socket.emit('youtube', youtubeUrl);
+            buttonPlay.style.background = "blue";
+        }
+
     }
 
 </script>

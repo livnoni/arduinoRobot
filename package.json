@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "camera" : "python3 camera/rpi_camera_surveillance_system.py",
+    "camera": "python3 camera/rpi_camera_surveillance_system.py",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -14,7 +14,11 @@
     "http": "0.0.0",
     "johnny-five": "^1.0.0",
     "keypress": "^0.2.1",
+    "lame": "^1.2.4",
+    "say": "^0.15.0",
     "socket.io": "^2.2.0",
-    "tty": "^1.0.1"
+    "socket.io-client": "^2.2.0",
+    "speaker": "^0.4.1",
+    "youtube-audio-stream": "^0.2.0"
   }
 }
