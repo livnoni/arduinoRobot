@@ -1,0 +1,7 @@
+{
+  "ip-mail": {
+    "from": "the email of hte sender",
+    "pass": "the sender password",
+    "to": "the email that will get the mail"
+  }
+}
