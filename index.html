@@ -57,24 +57,41 @@
     <br>
     <br>
 
-    <div style="text-align:center;width:480px;">
-        <button class="button" id="button-FORWARD" onmousedown="buttonPressed('FORWARD')"
-                ontouchstart="buttonPressed('FORWARD')" onmouseup="buttonReleased('FORWARD')"
-                ontouchend="buttonReleased('FORWARD')">FORWARD
-        </button>
-        <br><br>
-        <button class="button" id="button-LEFT" onmousedown="buttonPressed('LEFT')" ontouchstart="buttonPressed('LEFT')"
-                onmouseup="buttonReleased('LEFT')" ontouchend="buttonReleased('LEFT')">LEFT
-        </button>
-        <button class="button" id="button-RIGHT" onmousedown="buttonPressed('RIGHT')"
-                ontouchstart="buttonPressed('RIGHT')" onmouseup="buttonReleased('RIGHT')"
-                ontouchend="buttonReleased('RIGHT')">RIGHT
-        </button>
-        <br><br>
-        <button class="button" id="button-BACKWARD" onmousedown="buttonPressed('BACKWARD')"
-                ontouchstart="buttonPressed('BACKWARD')" onmouseup="buttonReleased('BACKWARD')"
-                ontouchend="buttonReleased('BACKWARD')">BACKWARD
-        </button>
+    <div style="text-align:center;width:800px;">
+        <div style="float: right; margin-right: 10px">
+            <button class="button" id="button-FORWARD" onmousedown="buttonPressed('FORWARD')"
+                    onmouseup="buttonReleased('FORWARD')"
+            >FORWARD [&#8593]
+            </button>
+            <br><br>
+            <button class="button" id="button-LEFT" onmousedown="buttonPressed('LEFT ')"
+                    onmouseup="buttonReleased('LEFT')">LEFT [&#8592]
+            </button>
+            <button class="button" id="button-RIGHT" onmousedown="buttonPressed('RIGHT')"
+                    onmouseup="buttonReleased('RIGHT')"
+            >RIGHT [&#8594]
+            </button>
+            <br><br>
+            <button class="button" id="button-BACKWARD" onmousedown="buttonPressed('BACKWARD')"
+                    onmouseup="buttonReleased('BACKWARD')"
+            >BACKWARD [&#8595]
+            </button>
+        </div>
+        <div style="float: left">
+            <button class="button" id="button-CAMERA_UP" onmousedown="buttonPressed('CAMERA_UP')"
+                    onmouseup="buttonReleased('CAMERA_UP')"
+            >Camera Up [w]
+            </button>
+            <br><br>
+            <button class="button" id="button-CAMERA_DOWN" onmousedown="buttonPressed('CAMERA_DOWN')"
+                    onmouseup="buttonReleased('CAMERA_DOWN')"
+            >Camera Down [s]
+            </button>
+        </div>
+
+
+        <br>
+
     </div>
 </center>
 
@@ -117,7 +134,7 @@
         evt = evt || window.event;
         switch (evt.key) {
             case 'ArrowUp':
-                emit("FORWARD")
+                emit("FORWARD");
                 break;
             case 'ArrowDown':
                 emit("BACKWARD");
@@ -128,7 +145,12 @@
             case 'ArrowRight':
                 emit("RIGHT");
                 break;
-
+            case 'w':
+                emit("CAMERA_UP");
+                break;
+            case 's':
+                emit("CAMERA_DOWN");
+                break;
         }
     };
 
@@ -147,6 +169,12 @@
             case 'ArrowRight':
                 emit("STOP");
                 break;
+            case 'w':
+                emit("CAMERA_STOP");
+                break;
+            case 's':
+                emit("CAMERA_STOP");
+                break;
         }
     };
 
@@ -157,7 +185,12 @@
             if (data != "STOP" && buttons[i].id.includes(data)) buttons[i].style.background = 'blue';
             else buttons[i].style.background = '#4CAF50';
         }
-        socket.emit('robot', data);
+        if (data.includes("CAMERA")) {
+            socket.emit('camera', data);
+        } else {
+            socket.emit('robot', data);
+        }
+
     }
 
     function setVideoStreaming() {
@@ -183,11 +216,11 @@
 
     function onYoutube(data) {
         let buttonPlay = document.getElementById("button-youtube-play");
-        if(data=="STOP"){
+        if (data == "STOP") {
             console.log("youtube->STOP");
             socket.emit('youtube', data);
             buttonPlay.style.background = "";
-        }else{
+        } else {
             let youtubeUrl = document.getElementById("youtube-input").value;
             console.log("youtube=", youtubeUrl);
             socket.emit('youtube', youtubeUrl);

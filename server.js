@@ -65,6 +65,20 @@ io.on('connection', async function(socket){
         }
     });
 
+    socket.on("camera", function(msg){
+        console.log("got  camera: ",msg)
+        switch(msg) {
+            case 'CAMERA_UP':
+                console.log("CAMERA_UP");
+                car.cameraUp();
+                break;
+            case 'CAMERA_DOWN':
+                console.log("CAMERA_DOWN");
+                car.cameraDown();
+                break;
+        }
+    });
+
     socket.on("say", function(msg){
         try{
             console.log("got say:", msg)

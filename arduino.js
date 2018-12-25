@@ -14,6 +14,7 @@ function arduino(){
             console.log("Board is ready!");
             var car = new Car();
             var led = new five.Led(13);
+
             led.on();
 
             resolve(car);
@@ -32,6 +33,8 @@ class Car{
         this.motor2 = new five.Motor(configs.M2);
         this.motor3 = new five.Motor(configs.M3);
         this.motor4 = new five.Motor(configs.M4);
+        this.cameraPosition = 90;
+        this.servo = new five.Servo(10);
     }
 
     forward(){
@@ -72,6 +75,20 @@ class Car{
         this.motor2.brake();
         this.motor3.brake();
         this.motor4.brake();
+    }
+
+    cameraUp(){
+        if(this.cameraPosition < 180){
+            this.cameraPosition += 10;
+            this.servo.to(this.cameraPosition);
+        }
+    }
+    cameraDown(){
+        if(this.cameraPosition > 0) {
+            this.cameraPosition -= 10;
+            this.servo.to(this.cameraPosition);
+        }
+
     }
 
 }
