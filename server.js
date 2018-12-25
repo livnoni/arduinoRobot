@@ -2,6 +2,8 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+require("./ipSender");
+
 const say = require('say');
 const Youtube = require('./youtube');
 var youtube = new Youtube();
