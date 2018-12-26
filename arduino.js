@@ -44,10 +44,37 @@ class Car{
         this.motor4.forward(SPEED_HIGH);
     }
 
-    backward(){
+    forward_right(){
+        this.motor1.forward(SPEED_HIGH);
+        this.motor2.forward(SPEED_HIGH);
+        this.motor3.forward(SPEED_HIGH/4);
+        this.motor4.forward(SPEED_HIGH/4);
+    }
 
+    forward_left(){
+        this.motor1.forward(SPEED_HIGH/4);
+        this.motor2.forward(SPEED_HIGH/4);
+        this.motor3.forward(SPEED_HIGH);
+        this.motor4.forward(SPEED_HIGH);
+    }
+
+    backward(){
         this.motor1.reverse(SPEED_HIGH);
         this.motor2.reverse(SPEED_HIGH);
+        this.motor3.reverse(SPEED_HIGH);
+        this.motor4.reverse(SPEED_HIGH);
+    }
+
+    backward_right(){
+        this.motor1.reverse(SPEED_HIGH);
+        this.motor2.reverse(SPEED_HIGH);
+        this.motor3.reverse(SPEED_HIGH/4);
+        this.motor4.reverse(SPEED_HIGH/4);
+    }
+
+    backward_left(){
+        this.motor1.reverse(SPEED_HIGH/4);
+        this.motor2.reverse(SPEED_HIGH/4);
         this.motor3.reverse(SPEED_HIGH);
         this.motor4.reverse(SPEED_HIGH);
     }

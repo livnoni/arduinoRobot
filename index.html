@@ -64,7 +64,7 @@
             >FORWARD [&#8593]
             </button>
             <br><br>
-            <button class="button" id="button-LEFT" onmousedown="buttonPressed('LEFT ')"
+            <button class="button" id="button-LEFT" onmousedown="buttonPressed('LEFT')"
                     onmouseup="buttonReleased('LEFT')">LEFT [&#8592]
             </button>
             <button class="button" id="button-RIGHT" onmousedown="buttonPressed('RIGHT')"
@@ -97,6 +97,13 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
+
+    window.addEventListener("keydown", function(e) {
+        // space and arrow keys
+        if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+            e.preventDefault();
+        }
+    }, false);
 
     function setVideoSize(param) {
         let currentWidth = document.getElementById("live-camera").width;
