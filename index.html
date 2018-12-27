@@ -40,7 +40,19 @@
     <div>
         Type text that the robot will say:
         <textarea rows="2" cols="50" id="say-input"></textarea>
-        <button onclick="onSayInputChange()">Robot Say!</button>
+        <button id='say_button' onclick="onSayInputChange()">Robot Say!</button>
+        <select id="say_select">
+            <option id="say_1">multi by 1</option>
+            <option id="say_2">multi by 2</option>
+            <option id="say_3">multi by 3</option>
+            <option id="say_4">multi by 4</option>
+            <option id="say_5">multi by 5</option>
+            <option id="say_6">multi by 6</option>
+            <option id="say_7">multi by 7</option>
+            <option id="say_8">multi by 8</option>
+            <option id="say_9">multi by 9</option>
+            <option id="say_10">multi by 10</option>
+        </select>
     </div>
     <br>
     <div>
@@ -97,10 +109,19 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
+    var sayInput = document.getElementById("say-input");
+    var sayInputActive = false;
 
-    window.addEventListener("keydown", function(e) {
+    sayInput.addEventListener("focus", () => {
+        sayInputActive = true;
+    }, true);
+    sayInput.addEventListener("blur", () => {
+        sayInputActive = false;
+    }, true);
+
+    window.addEventListener("keydown", function (e) {
         // space and arrow keys
-        if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+        if (!sayInputActive && [32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
             e.preventDefault();
         }
     }, false);
@@ -139,49 +160,66 @@
 
     document.onkeydown = function (evt) {
         evt = evt || window.event;
-        switch (evt.key) {
-            case 'ArrowUp':
-                emit("FORWARD");
-                break;
-            case 'ArrowDown':
-                emit("BACKWARD");
-                break;
-            case 'ArrowLeft':
-                emit("LEFT");
-                break;
-            case 'ArrowRight':
-                emit("RIGHT");
-                break;
-            case 'w':
-                emit("CAMERA_UP");
-                break;
-            case 's':
-                emit("CAMERA_DOWN");
-                break;
+        if (!sayInputActive) {
+            switch (evt.key) {
+                case 'ArrowUp':
+                    emit("FORWARD");
+                    break;
+                case 'ArrowDown':
+                    emit("BACKWARD");
+                    break;
+                case 'ArrowLeft':
+                    emit("LEFT");
+                    break;
+                case 'ArrowRight':
+                    emit("RIGHT");
+                    break;
+                case 'w' || "'":
+                    emit("CAMERA_UP");
+                    break;
+                case 's' || "ד":
+                    emit("CAMERA_DOWN");
+                    break;
+                case  "'":
+                    emit("CAMERA_UP");
+                    break;
+                case  "ד":
+                    emit("CAMERA_DOWN");
+                    break;
+            }
         }
+
     };
 
     document.onkeyup = function (evt) {
         evt = evt || window.event;
-        switch (evt.key) {
-            case 'ArrowUp':
-                emit("STOP");
-                break;
-            case 'ArrowDown':
-                emit("STOP");
-                break;
-            case 'ArrowLeft':
-                emit("STOP");
-                break;
-            case 'ArrowRight':
-                emit("STOP");
-                break;
-            case 'w':
-                emit("CAMERA_STOP");
-                break;
-            case 's':
-                emit("CAMERA_STOP");
-                break;
+        if (!sayInputActive) {
+            switch (evt.key) {
+                case 'ArrowUp':
+                    emit("STOP");
+                    break;
+                case 'ArrowDown':
+                    emit("STOP");
+                    break;
+                case 'ArrowLeft':
+                    emit("STOP");
+                    break;
+                case 'ArrowRight':
+                    emit("STOP");
+                    break;
+                case 'w':
+                    emit("CAMERA_STOP");
+                    break;
+                case 's':
+                    emit("CAMERA_STOP");
+                    break;
+                case  "'":
+                    emit("CAMERA_STOP");
+                    break;
+                case  "ד":
+                    emit("CAMERA_STOP");
+                    break;
+            }
         }
     };
 
@@ -216,9 +254,14 @@
     }
 
     function onSayInputChange() {
-        let sayData = document.getElementById("say-input").value;
-        console.log("sayData=", sayData)
-        socket.emit('say', sayData);
+        let sayButton = document.getElementById("say_button");
+        sayButton.disabled = true;
+        setTimeout(()=>{sayButton.disabled = false},2000)
+        let sayData = document.getElementById("say-input").value+"\n";
+        let multiplyBy = document.getElementById("say_select").options[document.getElementById("say_select").selectedIndex].value.split("multi by ")[1];
+        console.log("sayData=", sayData);
+        console.log("multiplyBy=", multiplyBy);
+        socket.emit('say', sayData.repeat(multiplyBy));
     }
 
     function onYoutube(data) {
