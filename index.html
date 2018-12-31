@@ -27,16 +27,25 @@
         <input id="ip-input" type="text" name="ip" value="YOUR_ROBOT_IP_HERE" size="40"
                onchange="onIpInputChange()"><br>
     </div>
-    <br>
-    <button onclick="setVideoSize('INCREASE')" style="font-size:20px; margin-right:50px">Increase Video +</button>
-    <button onclick="setVideoSize('DECREASE')" style="font-size:20px; margin-left:50px">Decrease Video -</button>
-    <br>
-    <br>
+    <div id ='canterDiv' style="text-align:center;width:800px;">
+        <pair><key>distance: </key><value id="distance"></value></pair>
+        <br>
+        <button onclick="setVideoSize('INCREASE')" style="font-size:20px; float: right; margin-right:50px" >Increase Video +</button>
+        <button onclick="setVideoSize('DECREASE')" style="font-size:20px; float: left; margin-left:50px">Decrease Video -
+        </button>
+        <br>
+        <br>
+    </div>
+
     <div>
         <img id="live-camera" width="640" height="480">
     </div>
 
     <br>
+    <button id="cameraMode" onclick="cameraMode()">Camera Mode</button>
+    <br>
+    <br>
+
     <div>
         Type text that the robot will say:
         <textarea rows="2" cols="50" id="say-input"></textarea>
@@ -109,6 +118,14 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
+
+    var camera_mode = false;
+    function cameraMode(){
+        camera_mode = !camera_mode;
+        if(camera_mode) document.getElementById("cameraMode").style.background = 'red';
+    }
+
+
     var sayInput = document.getElementById("say-input");
     var sayInputActive = false;
 
@@ -158,9 +175,15 @@
 
     var socket = io();
 
+    socket.on("distance", (data) => {
+        console.log("distance=",data)
+        document.getElementById("distance").innerText = data
+    })
+
     document.onkeydown = function (evt) {
         evt = evt || window.event;
         if (!sayInputActive) {
+            console.log("evt.key=",evt.key);
             switch (evt.key) {
                 case 'ArrowUp':
                     emit("FORWARD");
@@ -233,7 +256,11 @@
         if (data.includes("CAMERA")) {
             socket.emit('camera', data);
         } else {
-            socket.emit('robot', data);
+            if(camera_mode){
+                alert('Camera Mode is on! make sure the robot connect to electric supply and set Camera mode to off.')
+            }else{
+                socket.emit('robot', data);
+            }
         }
 
     }
@@ -256,8 +283,10 @@
     function onSayInputChange() {
         let sayButton = document.getElementById("say_button");
         sayButton.disabled = true;
-        setTimeout(()=>{sayButton.disabled = false},2000)
-        let sayData = document.getElementById("say-input").value+"\n";
+        setTimeout(() => {
+            sayButton.disabled = false
+        }, 2000)
+        let sayData = document.getElementById("say-input").value + "\n";
         let multiplyBy = document.getElementById("say_select").options[document.getElementById("say_select").selectedIndex].value.split("multi by ")[1];
         console.log("sayData=", sayData);
         console.log("multiplyBy=", multiplyBy);
