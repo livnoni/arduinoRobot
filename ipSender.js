@@ -1,9 +1,7 @@
-var ip = require('ip');
-
+const ip = require('ip');
 const nodeMailer = require('nodemailer');
-const config = require("./config.json")
 
-function sendIp(from, pass, to){
+function sendIp(from, pass, to, ngrokUrls){
     var transporter = nodeMailer.createTransport({
         service: 'gmail',
         auth: {
@@ -16,7 +14,7 @@ function sendIp(from, pass, to){
         from: from, // sender address
         to: to, // list of receivers
         subject: 'Robo Yuda Ip', // Subject line
-        html: `<p>Your robot ip here: ${ip.address()}</p> <p>Link to robot controller: ${ip.address()}:3000</p>`// plain text body
+        html: `<p>Your robot ip here: ${ip.address()}</p> <p>Link to robot controller: ${ip.address()}:3000</p>${(ngrokUrls && ngrokUrls.length > 0) ? `<p>Link to external IP 1: ${ngrokUrls[0]}</p><p>Link to external IP 2: ${ngrokUrls[1]}</p>` : null}`
     };
 
     transporter.sendMail(mailOptions, function (err, info) {
@@ -28,6 +26,4 @@ function sendIp(from, pass, to){
 }
 
 
-if(config["ip-mail"].sendMailOnStartServer){
-    sendIp(config["ip-mail"].from, config["ip-mail"].pass, config["ip-mail"].to);
-}
+module.exports = sendIp;

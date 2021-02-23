@@ -1,0 +1,30 @@
+const ngrok = require('ngrok');
+const config = require('./config');
+
+const createExternalIPs = async ()=>{
+    try {
+        const url_port_3000 = await ngrok.connect({
+            proto: 'http',
+            authtoken: config.ngrockToken,
+            addr: 3000,
+            region: 'eu',
+            onStatusChange: status => {console.log("url_port_3000 status:",status)}, // 'closed' - connection is lost, 'connected' - reconnected
+            onLogEvent: data => {if(config.debugger) console.log("data (url_port_3000): ",data)}
+        });
+        console.log("url_port_3000: ",url_port_3000);
+        const url_port_8000 = await ngrok.connect({
+            proto: 'http',
+            authtoken: config.ngrockToken,
+            addr: 8000,
+            region: 'eu',
+            onStatusChange: status => {console.log("url_port_8000 status",status)}, // 'closed' - connection is lost, 'connected' - reconnected
+            onLogEvent: data => {if(config.debugger) console.log("data (url_port_8000): ",data)}
+        });
+        console.log("url_port_8000: ",url_port_8000);
+        return [url_port_3000, url_port_8000];
+    }catch (e) {
+        console.warn('got error while try to create ngrok url - you can still use the robot on your local network!');
+    }
+};
+
+module.exports = createExternalIPs;

@@ -43,25 +43,6 @@ io.on('connection', async function(socket){
             case 'RIGHT':
                 //Arrow right
                 if(state != "RIGHT"){
-                    //todo: this logic makes some bug...
-                    // if(state == "FORWARD-RIGHT" || state == "FORWARD"){
-                    //     if(state != "FORWARD-RIGHT"){
-                    //         console.log("FORWARD-RIGHT");
-                    //         state = "FORWARD-RIGHT";
-                    //         car.forward_right();
-                    //     }
-                    // }else if(state == "BACKWARD-RIGHT" || state == "BACKWARD"){
-                    //     if(state != "BACKWARD-RIGHT"){
-                    //         console.log("BACKWARD-RIGHT");
-                    //         state = "BACKWARD-RIGHT";
-                    //         car.backward_right();
-                    //     }
-                    // }else{
-                    //     console.log("RIGHT");
-                    //     state = "RIGHT";
-                    //     car.right();
-                    // }
-
                     console.log("RIGHT");
                     state = "RIGHT";
                     car.right();
@@ -71,24 +52,6 @@ io.on('connection', async function(socket){
             case 'LEFT':
                 //Arrow right
                 if(state != "LEFT"){
-                    //todo: this logic makes some bug...
-                    // if(state == "FORWARD-LEFT" || state == "FORWARD"){
-                    //     if(state != "FORWARD-LEFT"){
-                    //         console.log("FORWARD-LEFT");
-                    //         state = "FORWARD-LEFT";
-                    //         car.forward_left();
-                    //     }
-                    // }else if(state == "BACKWARD-LEFT" || state == "BACKWARD"){
-                    //     if(state != "BACKWARD-LEFT"){
-                    //         console.log("BACKWARD-LEFT");
-                    //         state = "BACKWARD-LEFT";
-                    //         car.backward_left();
-                    //     }
-                    // }else{
-                    //     console.log("LEFT");
-                    //     state = "LEFT";
-                    //     car.left();
-                    // }
                     console.log("LEFT");
                     state = "LEFT";
                     car.left();

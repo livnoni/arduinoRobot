@@ -1,8 +1,11 @@
 {
   "ip-mail": {
     "sendMailOnStartServer": true,
-    "from": "the email of hte sender",
-    "pass": "the sender password",
-    "to": "the email that will get the mail"
-  }
+    "from": "EMAIL_TO_SEND_FROM",
+    "pass": "EMAIL_TO_SEND_FROM_PASS",
+    "to": "EMAIL_TO_SEND_TO"
+  },
+  "debugger": false,
+  "ngrock": true,
+  "ngrockToken": "NGROK_TOKEN"
 }

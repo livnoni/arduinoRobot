@@ -2,8 +2,6 @@ const stream = require('youtube-audio-stream');
 const decoder = require('lame').Decoder;
 const speaker = require('speaker');
 
-
-
 class Youtube{
     constructor(){
         this.currenUrl = "";
