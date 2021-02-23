@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "camera": "python3 camera/rpi_camera_surveillance_system.py",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

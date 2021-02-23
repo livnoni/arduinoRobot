@@ -2,6 +2,7 @@ const ngrok = require('ngrok');
 const config = require('./config');
 
 const createExternalIPs = async ()=>{
+    console.info(`creating ngrok URLS...`)
     try {
         const url_port_3000 = await ngrok.connect({
             proto: 'http',
