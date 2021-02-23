@@ -2,7 +2,7 @@
   "name": "arduino",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "camera": "python3 camera/rpi_camera_surveillance_system.py",
     "test": "echo \"Error: no test specified\" && exit 1"
