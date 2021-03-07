@@ -45,7 +45,7 @@ io.on('connection', async function(socket){
                 if(state != "FORWARD_LEFT"){
                     console.log("FORWARD_LEFT");
                     state = "FORWARD_LEFT";
-                    car.forward_right();
+                    car.forward_left();
                 }
                 break;
             case 'BACKWARD':
@@ -61,7 +61,7 @@ io.on('connection', async function(socket){
                 if(state != "BACKWARD_RIGHT"){
                     console.log("BACKWARD_RIGHT");
                     state = "BACKWARD_RIGHT";
-                    car.backward();
+                    car.backward_right();
                 }
                 break;
             case 'BACKWARD_LEFT':
@@ -69,7 +69,7 @@ io.on('connection', async function(socket){
                 if(state != "BACKWARD_LEFT"){
                     console.log("BACKWARD_LEFT");
                     state = "BACKWARD_LEFT";
-                    car.backward();
+                    car.backward_left();
                 }
                 break;
             case 'RIGHT':
