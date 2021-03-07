@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <style>
+    body{
+        display: flex;
+    }
+
+    .left-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .right-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
     .button {
         background-color: #4CAF50;
         border: none;
@@ -20,101 +38,97 @@
     <title>Yehuda Robot</title>
 </head>
 <body>
-<center>
-    <H1>Robo-Yuda</H1>
-    <div>
-        Robot ip:<br>
-        <input id="ip-input" type="text" name="ip" value="YOUR_ROBOT_IP_HERE" size="40"
-               onchange="onIpInputChange()"><br>
-    </div>
-    <div id ='canterDiv' style="text-align:center;width:800px;">
-        <pair><key>distance: </key><value id="distance"></value></pair>
-        <br>
-        <button onclick="setVideoSize('INCREASE')" style="font-size:20px; float: right; margin-right:50px" >Increase Video +</button>
-        <button onclick="setVideoSize('DECREASE')" style="font-size:20px; float: left; margin-left:50px">Decrease Video -
-        </button>
-        <br>
-        <br>
-    </div>
-
-    <div>
-        <img id="live-camera" width="640" height="480">
-    </div>
-
-    <br>
-    <button id="cameraMode" onclick="cameraMode()">Camera Mode</button>
-    <br>
-    <br>
-
-    <div>
-        Type text that the robot will say:
-        <textarea rows="2" cols="50" id="say-input"></textarea>
-        <button id='say_button' onclick="onSayInputChange()">Robot Say!</button>
-        <select id="say_select">
-            <option id="say_1">multi by 1</option>
-            <option id="say_2">multi by 2</option>
-            <option id="say_3">multi by 3</option>
-            <option id="say_4">multi by 4</option>
-            <option id="say_5">multi by 5</option>
-            <option id="say_6">multi by 6</option>
-            <option id="say_7">multi by 7</option>
-            <option id="say_8">multi by 8</option>
-            <option id="say_9">multi by 9</option>
-            <option id="say_10">multi by 10</option>
-        </select>
-    </div>
-    <br>
-    <div>
-        Playing youtube songs:
-        <input id="youtube-input" type="text" name="yutube" value="https://www.youtube.com/watch?v=SESSION_ID" size="40"
-               onchange="onIpInputChange()">
-        <button id="button-youtube-play" onclick="onYoutube()">Play</button>
-        <button id="button-youtube-stop" onclick="onYoutube('STOP')">Stop</button>
-    </div>
-
-    <br>
-    <button onclick="setButtonSize('INCREASE')" style="font-size:20px; margin-right:50px">Increase Buttons +</button>
-    <button onclick="setButtonSize('DECREASE')" style="font-size:20px; margin-left:50px">Decrease Buttons -</button>
-    <br>
-    <br>
-
-    <div style="text-align:center;width:800px;">
-        <div style="float: right; margin-right: 10px">
-            <button class="button" id="button-FORWARD" onmousedown="buttonPressed('FORWARD')"
-                    onmouseup="buttonReleased('FORWARD')"
-            >FORWARD [&#8593]
-            </button>
-            <br><br>
-            <button class="button" id="button-LEFT" onmousedown="buttonPressed('LEFT')"
-                    onmouseup="buttonReleased('LEFT')">LEFT [&#8592]
-            </button>
-            <button class="button" id="button-RIGHT" onmousedown="buttonPressed('RIGHT')"
-                    onmouseup="buttonReleased('RIGHT')"
-            >RIGHT [&#8594]
-            </button>
-            <br><br>
-            <button class="button" id="button-BACKWARD" onmousedown="buttonPressed('BACKWARD')"
-                    onmouseup="buttonReleased('BACKWARD')"
-            >BACKWARD [&#8595]
-            </button>
+    <div class="left-container">
+        <H1>Robo-Yuda</H1>
+        <div>
+            Robot ip:<br>
+            <input id="ip-input" type="text" name="ip" value="YOUR_ROBOT_IP_HERE" size="40"
+                   onchange="onIpInputChange()"><br>
         </div>
-        <div style="float: left">
-            <button class="button" id="button-CAMERA_UP" onmousedown="buttonPressed('CAMERA_UP')"
-                    onmouseup="buttonReleased('CAMERA_UP')"
-            >Camera Up [w]
+        <div id ='canterDiv' style="text-align:center;width:800px;">
+            <br>
+            <button onclick="setVideoSize('INCREASE')" style="font-size:20px; float: right; margin-right:50px" >Increase Video +</button>
+            <button onclick="setVideoSize('DECREASE')" style="font-size:20px; float: left; margin-left:50px">Decrease Video -
             </button>
-            <br><br>
-            <button class="button" id="button-CAMERA_DOWN" onmousedown="buttonPressed('CAMERA_DOWN')"
-                    onmouseup="buttonReleased('CAMERA_DOWN')"
-            >Camera Down [s]
-            </button>
+            <br>
+            <br>
         </div>
 
+        <div>
+            <img id="live-camera" width="640" height="480">
+        </div>
 
         <br>
-
+        <button id="cameraMode" onclick="cameraMode()">Camera Mode</button>
+        <br>
+        <br>
     </div>
-</center>
+    <div class="right-container">
+        <div>
+            Type text that the robot will say:
+            <textarea rows="2" cols="50" id="say-input"></textarea>
+            <button id='say_button' onclick="onSayInputChange()">Robot Say!</button>
+            <select id="say_select">
+                <option id="say_1">multi by 1</option>
+                <option id="say_2">multi by 2</option>
+                <option id="say_3">multi by 3</option>
+                <option id="say_4">multi by 4</option>
+                <option id="say_5">multi by 5</option>
+                <option id="say_6">multi by 6</option>
+                <option id="say_7">multi by 7</option>
+                <option id="say_8">multi by 8</option>
+                <option id="say_9">multi by 9</option>
+                <option id="say_10">multi by 10</option>
+            </select>
+        </div>
+        <br>
+        <div>
+            Playing youtube songs:
+            <input id="youtube-input" type="text" name="yutube" value="https://www.youtube.com/watch?v=SESSION_ID" size="40"
+                   onchange="onIpInputChange()">
+            <button id="button-youtube-play" onclick="onYoutube()">Play</button>
+            <button id="button-youtube-stop" onclick="onYoutube('STOP')">Stop</button>
+        </div>
+
+        <div style="text-align:center;width:800px;margin-top: 50px">
+            <div style="float: right; margin-right: 10px">
+                <button class="button" id="button-FORWARD" onmousedown="buttonPressed('FORWARD')"
+                        onmouseup="buttonReleased('FORWARD')"
+                >FORWARD [&#8593]
+                </button>
+                <br><br>
+                <button class="button" id="button-LEFT" onmousedown="buttonPressed('LEFT')"
+                        onmouseup="buttonReleased('LEFT')">LEFT [&#8592]
+                </button>
+                <button class="button" id="button-RIGHT" onmousedown="buttonPressed('RIGHT')"
+                        onmouseup="buttonReleased('RIGHT')"
+                >RIGHT [&#8594]
+                </button>
+                <br><br>
+                <button class="button" id="button-BACKWARD" onmousedown="buttonPressed('BACKWARD')"
+                        onmouseup="buttonReleased('BACKWARD')"
+                >BACKWARD [&#8595]
+                </button>
+            </div>
+            <div style="float: left">
+                <button class="button" id="button-CAMERA_UP" onmousedown="buttonPressed('CAMERA_UP')"
+                        onmouseup="buttonReleased('CAMERA_UP')"
+                >Camera Up [w]
+                </button>
+                <br><br>
+                <button class="button" id="button-CAMERA_DOWN" onmousedown="buttonPressed('CAMERA_DOWN')"
+                        onmouseup="buttonReleased('CAMERA_DOWN')"
+                >Camera Down [s]
+                </button>
+            </div>
+
+
+            <br>
+
+        </div>
+    </div>
+
+
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
@@ -123,8 +137,8 @@
     function cameraMode(){
         camera_mode = !camera_mode;
         if(camera_mode) document.getElementById("cameraMode").style.background = 'red';
+        else document.getElementById("cameraMode").style.background = '';
     }
-
 
     var sayInput = document.getElementById("say-input");
     var sayInputActive = false;
@@ -173,94 +187,147 @@
     }
 
 
-    var socket = io();
-
-    socket.on("distance", (data) => {
-        console.log("distance=",data)
-        document.getElementById("distance").innerText = data
-    })
+    const socket = io();
+    const keysPressed = {};
 
     document.onkeydown = function (evt) {
         evt = evt || window.event;
-        if (!sayInputActive) {
-            console.log("evt.key=",evt.key);
-            switch (evt.key) {
-                case 'ArrowUp':
-                    emit("FORWARD");
-                    break;
-                case 'ArrowDown':
-                    emit("BACKWARD");
-                    break;
-                case 'ArrowLeft':
-                    emit("LEFT");
-                    break;
-                case 'ArrowRight':
-                    emit("RIGHT");
-                    break;
-                case 'w' || "'":
+        keysPressed[evt.code] = true;
+        if(sayInputActive) return;
+
+        if(camera_mode){
+            switch (evt.code) {
+                case 'KeyW':
                     emit("CAMERA_UP");
                     break;
-                case 's' || "ד":
+                case 'KeyS':
                     emit("CAMERA_DOWN");
                     break;
-                case  "'":
-                    emit("CAMERA_UP");
-                    break;
-                case  "ד":
-                    emit("CAMERA_DOWN");
-                    break;
+                default:
+                    alert('Camera Mode is on! make sure the robot connect to electric supply and set Camera mode to off.');
             }
+            return;
         }
 
+        if(keysPressed['ArrowUp'] && keysPressed['ArrowRight']){
+            emit("FORWARD_RIGHT");
+            return;
+        }
+        if(keysPressed['ArrowUp'] && keysPressed['ArrowLeft']){
+            emit("FORWARD_LEFT");
+            return;
+        }
+        if(keysPressed['ArrowUp']){
+            emit("FORWARD");
+            return;
+        }
+        if(keysPressed['ArrowDown'] && keysPressed['ArrowRight'] ){
+            emit("BACKWARD_RIGHT");
+            return;
+        }
+        if(keysPressed['ArrowDown'] && keysPressed['ArrowLeft'] ){
+            emit("BACKWARD_LEFT");
+            return;
+        }
+        if(keysPressed['ArrowDown'] ){
+            emit("BACKWARD");
+            return;
+        }
+        if(keysPressed['ArrowLeft']){
+            emit("LEFT");
+            return;
+        }
+        if(keysPressed['ArrowRight']){
+            emit("RIGHT");
+            return;
+        }
+        if(keysPressed['KeyW']){
+            emit("CAMERA_UP");
+            return;
+        }
+        if(keysPressed['KeyS']){
+            emit("CAMERA_DOWN");
+            return;
+        }
     };
 
     document.onkeyup = function (evt) {
         evt = evt || window.event;
-        if (!sayInputActive) {
-            switch (evt.key) {
-                case 'ArrowUp':
-                    emit("STOP");
-                    break;
-                case 'ArrowDown':
-                    emit("STOP");
-                    break;
-                case 'ArrowLeft':
-                    emit("STOP");
-                    break;
-                case 'ArrowRight':
-                    emit("STOP");
-                    break;
-                case 'w':
+        delete keysPressed[evt.code];
+        if(sayInputActive) return;
+        if(camera_mode){
+            switch (evt.code) {
+                case 'KeyW':
                     emit("CAMERA_STOP");
                     break;
-                case 's':
+                case 'KeyS':
                     emit("CAMERA_STOP");
                     break;
-                case  "'":
-                    emit("CAMERA_STOP");
-                    break;
-                case  "ד":
-                    emit("CAMERA_STOP");
-                    break;
+                default:
+                    alert('Camera Mode is on! make sure the robot connect to electric supply and set Camera mode to off.');
             }
+            return;
         }
+
+        if(Object.keys(keysPressed).length > 0){
+            if(keysPressed['ArrowUp']){
+                emit("FORWARD");
+                return;
+            }
+            if(keysPressed['ArrowDown'] ){
+                emit("BACKWARD");
+                return;
+            }
+            if(keysPressed['ArrowLeft']){
+                emit("LEFT");
+                return;
+            }
+            if(keysPressed['ArrowRight']){
+                emit("RIGHT");
+                return;
+            }
+            return;
+        }
+        switch (evt.code) {
+            case 'ArrowUp':
+                emit("STOP");
+                break;
+            case 'ArrowDown':
+                emit("STOP");
+                break;
+            case 'ArrowLeft':
+                emit("STOP");
+                break;
+            case 'ArrowRight':
+                emit("STOP");
+                break;
+            case 'KeyW':
+                emit("CAMERA_STOP");
+                break;
+            case 'KeyS':
+                emit("CAMERA_STOP");
+                break;
+        }
+
     };
 
     function emit(data) {
         console.log(data);
         let buttons = document.getElementsByClassName("button");
         for (let i = 0; i < buttons.length; i++) {
-            if (data != "STOP" && buttons[i].id.includes(data)) buttons[i].style.background = 'blue';
+            if(buttons[i].id.includes("CAMERA")){
+                if (data != "STOP" && buttons[i].id.includes(data)) buttons[i].style.background = 'blue';
+                else buttons[i].style.background = '#4CAF50';
+                continue;
+            }
+            if(camera_mode) continue;
+            if (data != "STOP" && data.split("_").some(o=>buttons[i].id.includes(o))) buttons[i].style.background = 'blue';
             else buttons[i].style.background = '#4CAF50';
         }
         if (data.includes("CAMERA")) {
             socket.emit('camera', data);
         } else {
-            if(camera_mode){
-                alert('Camera Mode is on! make sure the robot connect to electric supply and set Camera mode to off.')
-            }else{
-                socket.emit('robot', data);
-            }
+            socket.emit('robot', data);
         }
 
     }
