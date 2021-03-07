@@ -6,7 +6,7 @@ const createExternalIPs = async ()=>{
     try {
         const url_port_3000 = await ngrok.connect({
             proto: 'http',
-            authtoken: config.ngrockToken,
+            authtoken: config.ngrokToken,
             addr: 3000,
             region: 'eu',
             onStatusChange: status => {console.log("url_port_3000 status:",status)}, // 'closed' - connection is lost, 'connected' - reconnected
@@ -15,7 +15,7 @@ const createExternalIPs = async ()=>{
         console.log("url_port_3000: ",url_port_3000);
         const url_port_8000 = await ngrok.connect({
             proto: 'http',
-            authtoken: config.ngrockToken,
+            authtoken: config.ngrokToken,
             addr: 8000,
             region: 'eu',
             onStatusChange: status => {console.log("url_port_8000 status",status)}, // 'closed' - connection is lost, 'connected' - reconnected
@@ -29,3 +29,7 @@ const createExternalIPs = async ()=>{
 };
 
 module.exports = createExternalIPs;
+
+(async ()=>{
+    await createExternalIPs();
+})();
