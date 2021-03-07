@@ -7,5 +7,5 @@
   },
   "debugger": false,
   "ngrock": true,
-  "ngrockToken": "NGROK_TOKEN"
+  "ngrokToken": "NGROK_TOKEN"
 }
