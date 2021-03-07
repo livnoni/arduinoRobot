@@ -40,72 +40,7 @@ class Car {
 
         this.socket = socket;
 
-
-        //todo: change HCSR04 to GP2Y0A21YK0F sensor
-
-        // this.proximity_A = new five.Proximity({
-        //     controller: "HCSR04",
-        //     pin: 7,
-        //     freq: 100
-        // });
-        //
-        // this.proximity_B = new five.Proximity({
-        //     controller: "HCSR04",
-        //     pin: 6,
-        //     freq: 100
-        //
-        // });
-        //
-        //
-        //
-        // this.distance = null;
-        // this.distanceA = 0;
-        // this.distanceB = 0;
-        //
-        // this.startDistance();
-
-
     }
-
-    startDistance() {
-
-
-        var self = this;
-
-        this.proximity_A.on("data", function () {
-            // console.log("proximity_A  cm : ", this.cm);
-            self.distanceA = this.cm;
-            self.sendDistance();
-
-        });
-
-        this.proximity_B.on("data", function () {
-            // console.log("proximity_B  cm : ", this.cm);
-            self.distanceB = this.cm;
-            self.sendDistance();
-        });
-
-
-    }
-
-    sendDistance(){
-        let lastDistance = this.distance;
-        this.distance = Math.min(this.distanceA, this.distanceB);
-        if(Math.abs(this.distance - lastDistance) > 1 ){
-            if (this.distance <= 20) {
-                this.redLedOn();
-            }else{
-                this.redLedOff();
-            }
-
-            if(this.socket){
-                this.socket.emit('distance', this.distance);
-            }
-        }
-
-
-    }
-
 
     forward() {
         this.motor1.forward(SPEED_HIGH);
@@ -115,21 +50,21 @@ class Car {
         this.greenLed.on();
     }
 
-    // forward_right() {
-    //     this.motor1.forward(SPEED_HIGH);
-    //     this.motor2.forward(SPEED_HIGH);
-    //     this.motor3.forward(SPEED_HIGH / 4);
-    //     this.motor4.forward(SPEED_HIGH / 4);
-    //     this.greenLed.on();
-    // }
-    //
-    // forward_left() {
-    //     this.motor1.forward(SPEED_HIGH / 4);
-    //     this.motor2.forward(SPEED_HIGH / 4);
-    //     this.motor3.forward(SPEED_HIGH);
-    //     this.motor4.forward(SPEED_HIGH);
-    //     this.greenLed.on();
-    // }
+    forward_right() {
+        this.motor1.forward(SPEED_HIGH);
+        this.motor2.forward(SPEED_HIGH);
+        this.motor3.forward(SPEED_HIGH / 4);
+        this.motor4.forward(SPEED_HIGH / 4);
+        this.greenLed.on();
+    }
+
+    forward_left() {
+        this.motor1.forward(SPEED_HIGH / 4);
+        this.motor2.forward(SPEED_HIGH / 4);
+        this.motor3.forward(SPEED_HIGH);
+        this.motor4.forward(SPEED_HIGH);
+        this.greenLed.on();
+    }
 
     backward() {
         this.motor1.reverse(SPEED_HIGH);
@@ -139,21 +74,21 @@ class Car {
         this.greenLed.on();
     }
 
-    // backward_right() {
-    //     this.motor1.reverse(SPEED_HIGH);
-    //     this.motor2.reverse(SPEED_HIGH);
-    //     this.motor3.reverse(SPEED_HIGH / 4);
-    //     this.motor4.reverse(SPEED_HIGH / 4);
-    //     this.greenLed.on();
-    // }
-    //
-    // backward_left() {
-    //     this.motor1.reverse(SPEED_HIGH / 4);
-    //     this.motor2.reverse(SPEED_HIGH / 4);
-    //     this.motor3.reverse(SPEED_HIGH);
-    //     this.motor4.reverse(SPEED_HIGH);
-    //     this.greenLed.on();
-    // }
+    backward_right() {
+        this.motor1.reverse(SPEED_HIGH);
+        this.motor2.reverse(SPEED_HIGH);
+        this.motor3.reverse(SPEED_HIGH / 4);
+        this.motor4.reverse(SPEED_HIGH / 4);
+        this.greenLed.on();
+    }
+
+    backward_left() {
+        this.motor1.reverse(SPEED_HIGH / 4);
+        this.motor2.reverse(SPEED_HIGH / 4);
+        this.motor3.reverse(SPEED_HIGH);
+        this.motor4.reverse(SPEED_HIGH);
+        this.greenLed.on();
+    }
 
     right() {
 
