@@ -32,11 +32,43 @@ io.on('connection', async function(socket){
                     car.forward();
                 }
                 break;
+            case 'FORWARD_RIGHT':
+                //Arrow up and right
+                if(state != "FORWARD_RIGHT"){
+                    console.log("FORWARD_RIGHT");
+                    state = "FORWARD_RIGHT";
+                    car.forward_right();
+                }
+                break;
+            case 'FORWARD_LEFT':
+                //Arrow up and right
+                if(state != "FORWARD_LEFT"){
+                    console.log("FORWARD_LEFT");
+                    state = "FORWARD_LEFT";
+                    car.forward_right();
+                }
+                break;
             case 'BACKWARD':
                 //Arrow down
                 if(state != "BACKWARD"){
                     console.log("BACKWARD");
                     state = "BACKWARD";
+                    car.backward();
+                }
+                break;
+            case 'BACKWARD_RIGHT':
+                //Arrow down
+                if(state != "BACKWARD_RIGHT"){
+                    console.log("BACKWARD_RIGHT");
+                    state = "BACKWARD_RIGHT";
+                    car.backward();
+                }
+                break;
+            case 'BACKWARD_LEFT':
+                //Arrow down
+                if(state != "BACKWARD_LEFT"){
+                    console.log("BACKWARD_LEFT");
+                    state = "BACKWARD_LEFT";
                     car.backward();
                 }
                 break;
@@ -48,7 +80,6 @@ io.on('connection', async function(socket){
                     car.right();
                 }
                 break;
-
             case 'LEFT':
                 //Arrow right
                 if(state != "LEFT"){
