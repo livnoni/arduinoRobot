@@ -1,5 +1,5 @@
 const ngrok = require('ngrok');
-const config = require('./config');
+const config = require('../config').ngrock;
 
 const createExternalIPs = async ()=>{
     console.info(`creating ngrok URLS...`)
@@ -8,7 +8,7 @@ const createExternalIPs = async ()=>{
             proto: 'http',
             authtoken: config.ngrokToken,
             addr: 3000,
-            region: 'eu',
+            region: config.region,
             onStatusChange: status => {console.log("url_port_3000 status:",status)}, // 'closed' - connection is lost, 'connected' - reconnected
             onLogEvent: data => {if(config.debugger) console.log("data (url_port_3000): ",data)}
         });
@@ -17,7 +17,7 @@ const createExternalIPs = async ()=>{
             proto: 'http',
             authtoken: config.ngrokToken,
             addr: 8000,
-            region: 'eu',
+            region: config.region,
             onStatusChange: status => {console.log("url_port_8000 status",status)}, // 'closed' - connection is lost, 'connected' - reconnected
             onLogEvent: data => {if(config.debugger) console.log("data (url_port_8000): ",data)}
         });
@@ -31,5 +31,5 @@ const createExternalIPs = async ()=>{
 module.exports = createExternalIPs;
 
 (async ()=>{
-    await createExternalIPs();
+    if(config.enable) await createExternalIPs();
 })();
