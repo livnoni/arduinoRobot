@@ -1,11 +1,14 @@
 {
   "ip-mail": {
-    "sendMailOnStartServer": true,
+    "sendMailOnStartServer": false,
     "from": "EMAIL_TO_SEND_FROM",
     "pass": "EMAIL_TO_SEND_FROM_PASS",
     "to": "EMAIL_TO_SEND_TO"
   },
-  "debugger": false,
-  "ngrock": true,
-  "ngrokToken": "NGROK_TOKEN"
+  "ngrock": {
+    "enable": false,
+    "debugger": false,
+    "region": "eu",
+    "ngrokToken": "YOUR_NGROK_TOKRN"
+  }
 }
