@@ -1,4 +1,4 @@
-var five, board;
+let five, board;
 
 const SPEED_HIGH = 255;
 const SPEED_MEDIUM = 125;
@@ -36,10 +36,6 @@ class Car {
         this.servo = new five.Servo(10);
 
         this.greenLed = new five.Led(12);
-        this.redLed = new five.Led(11);
-
-        this.socket = socket;
-
     }
 
     forward() {
@@ -128,21 +124,4 @@ class Car {
             this.servo.to(this.cameraPosition);
         }
     }
-
-    greenLedOn() {
-        this.greenLed.on();
-    }
-
-    greenLedOff() {
-        this.greenLed.off();
-    }
-
-    redLedOn() {
-        this.redLed.on();
-    }
-
-    redLedOff() {
-        this.redLed.off();
-    }
-
 }

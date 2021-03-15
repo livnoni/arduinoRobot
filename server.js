@@ -1,18 +1,18 @@
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-
-require("./ipSender");
+const express = require('express');
+const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const path = require('path');
+const sendIp = require('./src/ipSender');
+const config = require('./config');
 
 const say = require('say');
-const Youtube = require('./youtube');
+const Youtube = require('./src/youtube');
 var youtube = new Youtube();
 
 var car;
 
-app.get('/', function(req, res){
-    res.sendFile(__dirname + '/index.html');
-});
+app.use(express.static(path.join(__dirname, 'client')));
 
 io.on('connection', async function(socket){
     console.log('a user connected');
@@ -142,4 +142,9 @@ io.on('connection', async function(socket){
 
 http.listen(3000, function(){
     console.log('listening on *:3000');
+
+    if(config["ip-mail"].sendMailOnStartServer){
+        sendIp(config["ip-mail"].from, config["ip-mail"].pass, config["ip-mail"].to);
+    }
+
 });
