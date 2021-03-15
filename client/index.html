@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" type="text/css" href="style.css" />
+
+
+<head>
+    <meta charset="UTF-8" name="viewport" content="user-scalable=no" />
+    <title>Yehuda Robot</title>
+</head>
+<body>
+    <div class="app">
+        <div class="left-container">
+            <H1>Robo-Yuda</H1>
+            <div>
+                Robot ip:<br>
+                <input id="ip-input" type="text" name="ip" value="YOUR_ROBOT_IP_HERE" size="40"
+                       onkeypress="onIpInputChange()"><br>
+            </div>
+            <div id ='canterDiv' style="text-align:center;width:800px;">
+                <br>
+                <button onclick="setVideoSize('INCREASE')" style="font-size:20px; float: right; margin-right:50px" >Increase Video +</button>
+                <button onclick="setVideoSize('DECREASE')" style="font-size:20px; float: left; margin-left:50px">Decrease Video -
+                </button>
+                <br>
+                <br>
+            </div>
+
+            <div>
+                <img id="live-camera" width="640" height="480">
+            </div>
+
+            <br>
+            <button id="cameraMode" onclick="cameraMode()">Camera Mode</button>
+            <br>
+            <br>
+        </div>
+        <div class="right-container">
+            <div>
+                Type text that the robot will say:
+                <textarea rows="2" cols="50" id="say-input"></textarea>
+                <button id='say_button' onclick="onSayInputChange()">Robot Say!</button>
+                <select id="say_select">
+                    <option id="say_1">multi by 1</option>
+                    <option id="say_2">multi by 2</option>
+                    <option id="say_3">multi by 3</option>
+                    <option id="say_4">multi by 4</option>
+                    <option id="say_5">multi by 5</option>
+                    <option id="say_6">multi by 6</option>
+                    <option id="say_7">multi by 7</option>
+                    <option id="say_8">multi by 8</option>
+                    <option id="say_9">multi by 9</option>
+                    <option id="say_10">multi by 10</option>
+                </select>
+            </div>
+            <br>
+            <div>
+                Playing youtube songs:
+                <input id="youtube-input" type="text" name="yutube" value="https://www.youtube.com/watch?v=SESSION_ID" size="40"
+                       onchange="onIpInputChange()">
+                <button id="button-youtube-play" onclick="onYoutube()">Play</button>
+                <button id="button-youtube-stop" onclick="onYoutube('STOP')">Stop</button>
+            </div>
+
+            <div id="buttons-container" style="text-align:center;width:800px;margin-top: 50px">
+                <div style="float: right; margin-right: 10px">
+                    <button class="button" id="button-FORWARD"
+                            onmousedown="buttonPressed('FORWARD')"
+                            onmouseup="buttonReleased('FORWARD')"
+                            ontouchstart="buttonPressed('FORWARD')"
+                            ontouchend="buttonReleased('FORWARD')"
+                    >FORWARD [&#8593]
+                    </button>
+                    <br><br>
+                    <button class="button" id="button-LEFT"
+                            onmousedown="buttonPressed('LEFT')"
+                            onmouseup="buttonReleased('LEFT')"
+                            ontouchstart="buttonPressed('LEFT')"
+                            ontouchend="buttonReleased('LEFT')"
+                    >LEFT [&#8592]
+                    </button>
+                    <button class="button" id="button-RIGHT"
+                            onmousedown="buttonPressed('RIGHT')"
+                            onmouseup="buttonReleased('RIGHT')"
+                            ontouchstart="buttonPressed('RIGHT')"
+                            ontouchend="buttonReleased('RIGHT')"
+                    >RIGHT [&#8594]
+                    </button>
+                    <br><br>
+                    <button class="button" id="button-BACKWARD"
+                            onmousedown="buttonPressed('BACKWARD')"
+                            onmouseup="buttonReleased('BACKWARD')"
+                            ontouchstart="buttonPressed('BACKWARD')"
+                            ontouchend="buttonReleased('BACKWARD')"
+                    >BACKWARD [&#8595]
+                    </button>
+                </div>
+                <div style="float: left">
+                    <button class="button" id="button-CAMERA_UP"
+                            onmousedown="buttonPressed('CAMERA_UP')"
+                            onmouseup="buttonReleased('CAMERA_UP')"
+                            ontouchstart="buttonPressed('CAMERA_UP')"
+                            ontouchend="buttonReleased('CAMERA_UP')"
+                    >Camera Up [w]
+                    </button>
+                    <br><br>
+                    <button class="button" id="button-CAMERA_DOWN"
+                            onmousedown="buttonPressed('CAMERA_DOWN')"
+                            onmouseup="buttonReleased('CAMERA_DOWN')"
+                            ontouchstart="buttonPressed('CAMERA_DOWN')"
+                            ontouchend="buttonReleased('CAMERA_DOWN')"
+                    >Camera Down [s]
+                    </button>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="javascript.js"></script>
+
+
+</body>
+</html>
