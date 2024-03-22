@@ -6,9 +6,9 @@ const path = require('path');
 const sendIp = require('./src/ipSender');
 const config = require('./config');
 
-const say = require('say');
-const Youtube = require('./src/youtube');
-var youtube = new Youtube();
+// const say = require('say');
+// const Youtube = require('./src/youtube');
+// var youtube = new Youtube();
 
 var car;
 
@@ -122,18 +122,18 @@ io.on('connection', async function(socket){
         }
     });
 
-    socket.on("youtube", async function(data){
-        console.log("server got youtube -> "+data);
-        try{
-            if(data=='STOP'){
-                youtube.stop();
-            }else{
-                youtube.play(data);
-            }
-        }catch (e) {
-            console.error("youtube err:",e);
-        }
-    });
+    // socket.on("youtube", async function(data){
+    //     console.log("server got youtube -> "+data);
+    //     try{
+    //         if(data=='STOP'){
+    //             youtube.stop();
+    //         }else{
+    //             youtube.play(data);
+    //         }
+    //     }catch (e) {
+    //         console.error("youtube err:",e);
+    //     }
+    // });
 
     socket.on('disconnect', function(){
         console.log('user disconnected');
