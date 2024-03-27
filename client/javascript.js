@@ -13,6 +13,8 @@ for(let i=0; i<buttons.length; i++){
 }
 
 
+document.getElementById("ip-input").value = `${location.hostname}:8081`
+
 var camera_mode = false;
 function cameraMode(){
     camera_mode = !camera_mode;
