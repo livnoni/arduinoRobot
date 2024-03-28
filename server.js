@@ -5,6 +5,8 @@ const io = require('socket.io')(http);
 const path = require('path');
 const sendIp = require('./src/ipSender');
 const config = require('./config');
+const portsForward = require('./ngrok/portsForward');
+
 
 // const say = require('say');
 // const Youtube = require('./src/youtube');
@@ -145,6 +147,10 @@ http.listen(3000, function(){
 
     if(config["ip-mail"].sendMailOnStartServer){
         sendIp(config["ip-mail"].from, config["ip-mail"].pass, config["ip-mail"].to);
+    }
+
+    if(config?.ngrock?.enable){
+        portsForward()
     }
 
 });
