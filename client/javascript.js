@@ -12,9 +12,6 @@ for(let i=0; i<buttons.length; i++){
     }
 }
 
-
-document.getElementById("ip-input").value = `http://${location.hostname}:8081`
-
 var camera_mode = false;
 function cameraMode(){
     camera_mode = !camera_mode;
@@ -206,7 +203,8 @@ function emit(data) {
 function setVideoStreaming() {
     let currentUrl = window.location.hostname;
     if(currentUrl !== 'localhost') return;
-    let videoSrc = `${currentUrl}:8000`;
+    let videoSrc = `http://${location.hostname}:8081`;
+    //let videoSrc = `http://192.168.33.17:8081`;
     document.getElementById("live-camera").src = videoSrc;
     document.getElementById("ip-input").value = videoSrc;
 }
@@ -243,4 +241,32 @@ function onYoutube(data) {
         socket.emit('youtube', youtubeUrl);
         buttonPlay.style.background = "blue";
     }
+}
+
+function capture() {
+    html2canvas(document.getElementById('live-camera'),{
+        useCORS: true,
+        allowTaint: true,
+    }).then(canvas => {
+        saveAs(canvas.toDataURL(), `robo-yuda-${new Date().getTime()}.png`);
+    });
+
+    function saveAs(uri, filename) {
+        const link = document.createElement('a');
+        if (typeof link.download === 'string') {
+            link.href = uri;
+            link.download = filename;
+            //Firefox requires the link to be in the body
+            document.body.appendChild(link);
+            //simulate click
+            link.click();
+            //remove the link when done
+            document.body.removeChild(link);
+        } else {
+            window.open(uri);
+        }
+    }
+
+
+
 }

@@ -30,3 +30,10 @@
     margin: 4px 2px;
     cursor: pointer;
 }
+
+.camera-top-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}

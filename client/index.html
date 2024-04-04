@@ -16,17 +16,17 @@
                 <input id="ip-input" type="text" name="ip" value="YOUR_ROBOT_IP_HERE" size="40"
                        onkeypress="onIpInputChange()"><br>
             </div>
-            <div id ='canterDiv' style="text-align:center;width:800px;">
+            <div id ='canterDiv' class="camera-top-buttons">
                 <br>
-                <button onclick="setVideoSize('INCREASE')" style="font-size:20px; float: right; margin-right:50px" >Increase Video +</button>
-                <button onclick="setVideoSize('DECREASE')" style="font-size:20px; float: left; margin-left:50px">Decrease Video -
-                </button>
+                    <button onclick="setVideoSize('INCREASE')" >Increase Video +</button>
+                    <button id="save-picture" onclick="capture()">CAPTURE PICTURE</button>
+                    <button onclick="setVideoSize('DECREASE')">Decrease Video -</button>
                 <br>
                 <br>
             </div>
 
             <div>
-                <img id="live-camera" width="640" height="480">
+                <img id="live-camera" width="640" height="480" >
             </div>
 
             <br>
@@ -119,6 +119,7 @@
 
 
 <script src="/socket.io/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script type="text/javascript" src="javascript.js"></script>
 
 
